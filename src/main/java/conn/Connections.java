@@ -20,7 +20,6 @@ public class Connections {
 		 // Configure which instance and what database user to connect with.
 		config.setDriverClassName(System.getProperty("drivername")); // see appengine-web.xml
 		config.setJdbcUrl("jdbc:mysql://"+System.getProperty("sqlhostname")+":"+System.getProperty("sqlserverport")+"/"+System.getProperty("sqldatabasename")); // see appengine-web.xml
-		config.setJdbcUrl("jdbc:mysql://localhost:3306/Databasename"); // see appengine-web.xml
 		config.setUsername(System.getProperty("sqlusername")); // see appengine-web.xml
 		config.setPassword(System.getProperty("sqlpassword")); // see appengine-web.xml
 		
@@ -48,7 +47,7 @@ public class Connections {
                     resultSet = pstmt.executeQuery();
                     while (resultSet.next())
                     {
-                            System.out.println(resultSet.getString(1) + "," + resultSet.getString(2) + "," + resultSet.getString(3));
+                            System.out.println(resultSet.getString(1) + "," + resultSet.getString(2));
                     }
 
             }

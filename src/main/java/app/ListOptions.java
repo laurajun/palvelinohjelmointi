@@ -55,13 +55,15 @@ public class ListOptions extends HttpServlet {
 			 * Port number is 3306 by default
 			 */
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			String hostname = System.getProperty("sqlshostname");
+			String sqlhostname = System.getProperty("sqlhostname");
 			String serverport = System.getProperty("sqlserverport");
 			String database = System.getProperty("sqldatabasename");
 			String username = System.getProperty("sqlusername");
 			String password = System.getProperty("sqlpassword");
-			conn=java.sql.DriverManager.getConnection("jdbc:mysql://"+hostname+":"+serverport+"/"+database,username,password);
-			
+			String url = "jdbc:mysql://"+sqlhostname+":"+serverport+"/"+database;
+			conn=java.sql.DriverManager.getConnection(url,username,password);
+			System.out.println("Database connection established");
+		
 			Statement stmt=conn.createStatement();
 			ResultSet rs=stmt.executeQuery("select * from vaihtoehdot");
 			out.println("<ol>");
@@ -72,9 +74,11 @@ public class ListOptions extends HttpServlet {
 			 * different functions to retrieve data.
 			 */
 			while (rs.next()){
-				out.println("<li>"+rs.getString("id")+" ("+rs.getString("vaihtoehto")+")");
+				out.println("<li>"+rs.getInt("id")+" ("+rs.getString("vaihtoehto")+")");
 			}	  
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
+			System.err.println("Cannot connect to database server");
+            System.err.println(e.getMessage());
 			e.printStackTrace();
 		}
 		out.println("<a href='./addgame.html'>Back to form</a>");

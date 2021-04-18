@@ -12,12 +12,13 @@ public class Dao {
 	public Dao() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			String hostname = System.getProperty("sqlshostname");
+			String sqlhostname = System.getProperty("sqlhostname");
 			String serverport = System.getProperty("sqlserverport");
 			String database = System.getProperty("sqldatabasename");
 			String username = System.getProperty("sqlusername");
 			String password = System.getProperty("sqlpassword");
-			conn=java.sql.DriverManager.getConnection("jdbc:mysql://"+hostname+":"+serverport+"/"+database,username,password);
+			String url = "jdbc:mysql://"+sqlhostname+":"+serverport+"/"+database;
+			conn=java.sql.DriverManager.getConnection(url,username,password);
 			
 		} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block

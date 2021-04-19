@@ -1,68 +1,77 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+
+import data.Vaihtoehto;
+
 public class Dao {
 
-	private Connection conn;
-	public Dao() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			String sqlhostname = System.getProperty("sqlhostname");
+	private Connection connect = null;
+    private Statement statement = null;
+    private ResultSet resultSet = null;
+    
+	public void openDataBase() throws Exception {
+        try {
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Setup variables
+            String sqlhostname = System.getProperty("sqlhostname");
 			String serverport = System.getProperty("sqlserverport");
 			String database = System.getProperty("sqldatabasename");
 			String username = System.getProperty("sqlusername");
 			String password = System.getProperty("sqlpassword");
 			String url = "jdbc:mysql://"+sqlhostname+":"+serverport+"/"+database;
-			conn=java.sql.DriverManager.getConnection(url,username,password);
-			
-		} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public void close() {
+            // Setup the connection with the DB
+            connect = java.sql.DriverManager.getConnection(url,username,password);
+
+        } catch (SQLException | ClassNotFoundException e) {
+            throw e;
+        } finally {
+        }
+
+    }
+	
+	public ArrayList<Vaihtoehto> readAllOption() {
+		ArrayList<Vaihtoehto> list=new ArrayList<>();
+		Statement statement=null;
 		try {
-			conn.close();
+			statement = connect.createStatement();
+			ResultSet rs=statement.executeQuery("select * from vaihtoehdot");
+			while (rs.next()) {
+		 		Vaihtoehto vaihtoehto =new Vaihtoehto();
+				vaihtoehto.setId(rs.getInt("id"));
+				vaihtoehto.setVaihtoehto(rs.getString("vaihtoehto"));
+				list.add(vaihtoehto);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return list;
 	}
-//	public int saveGame(Game game) {
-//		Statement stmt=null;
-//		int count=0;
-//		try {
-//			stmt = conn.createStatement();
-//			count=stmt.executeUpdate("insert into gametable(breed, weight) values('"+game.getBreed()+"', "+game.getWeight()+")");
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return count;
-//	}
-//	public ArrayList<Option> readAllOption() {
-//		ArrayList<Option> list=new ArrayList<>();
-//		Statement stmt=null;
-//		int count=0;
-//		try {
-//			stmt = conn.createStatement();
-//			ResultSet rs=stmt.executeQuery("select * from vaihtoehdot");
-//			while (rs.next()) {
-//				Game game=new Game();
-//				game.setId(rs.getInt("id"));
-//				game.setBreed(rs.getString("breed"));
-//				game.setWeight(rs.getFloat("weight"));
-//				list.add(game);
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return list;
-//	}
+	
+	
+    public void close() {
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (connect != null) {
+                connect.close();
+            }
+        } catch (Exception e) {
+
+        }
+    }
 }

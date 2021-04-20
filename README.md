@@ -1,5 +1,5 @@
 # Palvelinohjelmointi
-Harjoitustyö
+Harjoitustyö / HAMK / Tietojenkäsittely
 
 Vaalikoneen ensimmäinen vaihe
 

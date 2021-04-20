@@ -7,7 +7,7 @@
 <title>Vaalikone - Väittämät</title>
 </head>
 <body>
-	<form action='./addgame' method='post'>
+	<form action='AddClaim' method='post'>
 ID: <input type='text' name='id' value=''><br>
 Väittämä: <input type='text' name='vaittama' value=''><br>
 <input type='submit' name='ok' value='OK'>

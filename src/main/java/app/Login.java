@@ -59,6 +59,7 @@ public class Login extends HttpServlet {
 		    Connection connection = DriverManager.getConnection(url, sqlusername, sqlpassword);
 		    Statement st= connection.createStatement();
 		    ResultSet rs=st.executeQuery("select * from logins where username='"+username+"' and password='"+password+"'");
+		    
 		    while(rs.next())
 		    {
 			    String fullname = rs.getString("fullname");
@@ -78,6 +79,7 @@ public class Login extends HttpServlet {
 			    }
 			    
 		    }
+		    
 		    RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
 	        dispatcher.forward(request, response);
 	    }

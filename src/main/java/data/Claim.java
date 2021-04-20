@@ -1,4 +1,4 @@
-package app;
+package data;
 
 public class Claim {
 

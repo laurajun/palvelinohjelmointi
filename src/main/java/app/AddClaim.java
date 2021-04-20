@@ -44,18 +44,16 @@ public class AddClaim extends HttpServlet {
 		  RequestDispatcher rd=request.getRequestDispatcher("htmlstart.html");
 		  rd.include(request,  response);
 
-		  private ResultSet saveTheGame(Connection conn, String breed, float weight, int age, Date date) {
+		  private ResultSet saveTheGame(Connection conn, int id, String vaittama) {
 			// TODO Auto-generated method stub
-			  String sql="insert into palvelinohjelmointi(breed, weight, age, date) values(?,?,?,?)";
+			  String sql="insert into vaittama(id, vaittama) values(?,?)";
 				try {
 					PreparedStatement pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1,  breed);
-					pstmt.setFloat(2, weight);
-					pstmt.setInt(3, age);
-					pstmt.setDate(4, date);
+					pstmt.setInt(1, id);
+					pstmt.setString(2,  vaittama);		
 					pstmt.executeUpdate();
 					
-					ResultSet RS=pstmt.executeQuery("select * from projekti");
+					ResultSet RS=pstmt.executeQuery("select * from vaittama");
 					return RS;
 					
 				} catch (SQLException e) {
@@ -64,5 +62,11 @@ public class AddClaim extends HttpServlet {
 				}
 				return null;
 			}
+
+			/*
+		 * With a RequestDispatcher object is the htmlend.html file included to this servlet
+		 */
+		rd=request.getRequestDispatcher("htmlend.html");
+		rd.include(request,  response);;
 
 }

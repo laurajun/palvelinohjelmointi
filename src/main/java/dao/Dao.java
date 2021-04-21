@@ -6,41 +6,30 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
+import conn.Connections;
 import data.Vaihtoehto;
 
-public class Dao {
 
-	public Connection connect = null;
+public class Dao {
+    private Connection conn;
     private Statement statement = null;
     private ResultSet resultSet = null;
+   
     
-	public void openDataBase() throws Exception {
-        try {
-            // This will load the MySQL driver, each DB has its own driver
-            Class.forName("com.mysql.jdbc.Driver");
-            // Setup variables
-            String sqlhostname = System.getProperty("sqlhostname");
-			String serverport = System.getProperty("sqlserverport");
-			String database = System.getProperty("sqldatabasename");
-			String username = System.getProperty("sqlusername");
-			String password = System.getProperty("sqlpassword");
-			String url = "jdbc:mysql://"+sqlhostname+":"+serverport+"/"+database;
-            // Setup the connection with the DB
-            connect = java.sql.DriverManager.getConnection(url,username,password);
-
-        } catch (SQLException | ClassNotFoundException e) {
-            throw e;
-        } finally {
-        }
-
-    }
+    public Dao() {
+		try {
+			conn=Connections.getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public ArrayList<Vaihtoehto> readAllOption() {
 		ArrayList<Vaihtoehto> list=new ArrayList<>();
 		Statement statement=null;
 		try {
-			statement = connect.createStatement();
+			statement = conn.createStatement();
 			ResultSet rs=statement.executeQuery("select * from vaihtoehdot");
 			while (rs.next()) {
 		 		Vaihtoehto vaihtoehto =new Vaihtoehto();
@@ -66,11 +55,14 @@ public class Dao {
                 statement.close();
             }
 
-            if (connect != null) {
-                connect.close();
+            if (conn != null) {
+                conn.close();
             }
         } catch (Exception e) {
 
         }
     }
+
 }
+
+

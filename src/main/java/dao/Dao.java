@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,7 +11,7 @@ import data.Vaihtoehto;
 
 public class Dao {
 
-	private Connection connect = null;
+	public Connection connect = null;
     private Statement statement = null;
     private ResultSet resultSet = null;
     

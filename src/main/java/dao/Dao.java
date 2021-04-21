@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,6 +25,20 @@ public class Dao {
 			e.printStackTrace();
 		}
 	}
+    
+    public void TallennaVaittama(String vaittama) {
+    	// TODO Auto-generated method stub
+    	  String sql="insert into vaittamat(vaittama) values(?)";
+    		try {
+    			PreparedStatement pstmt=conn.prepareStatement(sql);
+    			pstmt.setString(1,  vaittama);
+     			pstmt.executeUpdate();
+    			
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    }
 	
 	public ArrayList<Vaihtoehto> readAllOption() {
 		ArrayList<Vaihtoehto> list=new ArrayList<>();

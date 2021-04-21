@@ -39,6 +39,21 @@ public class Dao {
     			e.printStackTrace();
     		}
     }
+    
+    public void PaivitaVaittama(String vaittama, int id) {
+    	// TODO Auto-generated method stub
+    	  String sql="update table vaittamat set vaittama=? where id=?";
+    		try {
+    			PreparedStatement pstmt=conn.prepareStatement(sql);
+    			pstmt.setString(1,  vaittama);
+    			pstmt.setInt(2,  id);
+     			pstmt.executeUpdate();
+    			
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    }
 	
 	public ArrayList<Vaihtoehto> readAllOption() {
 		ArrayList<Vaihtoehto> list=new ArrayList<>();

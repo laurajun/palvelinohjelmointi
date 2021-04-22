@@ -43,6 +43,8 @@ public class TallennaVaittama extends HttpServlet {
 		Dao dao = new Dao();
 		dao.TallennaVaittama(vaittama);
 		dao.close();
+		String destPage = "/ListClaims";
+		response.sendRedirect(destPage);
 	}
 
 }

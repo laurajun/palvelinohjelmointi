@@ -54,7 +54,7 @@ public class Login extends HttpServlet {
         	Dao dao = new Dao();
         	if(dao.CheckLogin(username,password))
             {
-        	    HttpSession session = request.getSession();
+        	    HttpSession session = request.getSession(true);
 		        session.setAttribute("username", username);
 		        destPage = "home.jsp";
             }
@@ -65,8 +65,7 @@ public class Login extends HttpServlet {
 		        session.setAttribute("message", message);
 		        destPage = "index.jsp";
             }
-            RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
-	        dispatcher.forward(request, response);
+            response.sendRedirect(destPage);
         } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import conn.Connections;
+import data.Claim;
 import data.Vaihtoehto;
 
 
@@ -92,6 +93,44 @@ public class Dao {
 		return list;
 	}
 	
+	public ArrayList<Claim> listAllClaims() {
+		ArrayList<Claim> list=new ArrayList<>();
+		Statement statement=null;
+		try {
+			statement = conn.createStatement();
+			ResultSet rs=statement.executeQuery("select * from vaittamat");
+			while (rs.next()) {
+		 		Claim claim =new Claim();
+				claim.setId(rs.getInt("id"));
+				claim.setClaim(rs.getString("vaittama"));
+				list.add(claim);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public boolean CheckLogin(String username, String password) throws SQLException,
+    ClassNotFoundException {
+			boolean ok = false;
+		
+			String sql = "SELECT * FROM logins WHERE username = ? and password = ?";
+			try {
+    			PreparedStatement pstmt=conn.prepareStatement(sql);
+    			pstmt.setString(1,  username);
+    			pstmt.setString(2,  password);
+    			ResultSet result = pstmt.executeQuery();
+    			ok = result.next();
+
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+			return ok;
+		
+	}
 	
     public void close() {
         try {

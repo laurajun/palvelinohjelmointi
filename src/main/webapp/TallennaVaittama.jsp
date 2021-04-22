@@ -5,15 +5,16 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Vaalikone - Logged in</title>
+<title>Vaalikone - Väittämän lisäys</title>
 </head>
 <body>
     <div style="text-align: center">
-        <h1>Tervetuloa Vaalikoneeseen <b>${username}</b>!</h1>
-        <br><br>
-        <a href="/ListClaims">Näytä väittämät</a><br><br>
-        <a href="TallennaVaittama.jsp">Lisää väittämä</a><br><br>
-        <a href="/logout">Logout</a>
+	 <form action="TallennaVaittama" method="post">
+            <label for="vaittama">Väittämä:</label>
+            <input type="text" name="vaittama" size="30" />
+            <br><br>           
+            <button type="submit">Lisää</button>
+        </form>
     </div>
 </body>
 </html>

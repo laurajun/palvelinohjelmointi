@@ -46,6 +46,8 @@ public class PoistaVaittama extends HttpServlet {
 		Dao dao = new Dao();
 		dao.PoistaVaittama(id);
 		dao.close();
+		String siirrySivulle = "/ListClaims";
+		response.sendRedirect(siirrySivulle);
 	}
 
 }

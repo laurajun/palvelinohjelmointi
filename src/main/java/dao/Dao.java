@@ -54,6 +54,24 @@ public class Dao {
     			e.printStackTrace();
     		}
     }
+    
+    // Kokeilen tuoda pelkän id:n (poistohan tehdään sen perusteella) stringinä ja sitten muuntaa sen int:ksi ennen kuin vastaava
+    // rivi poistetaan taulusta
+    
+    public void PoistaVaittama(String id) {
+    	String sql = "Delete from vaittamat where id=?";
+    	try {
+    		PreparedStatement pstmt=conn.prepareStatement(sql);
+    	//	pstmt.setString(1, vaittama);
+    		int sid = Integer.parseInt(id);
+    		pstmt.setInt(1, sid);
+    		pstmt.executeUpdate();
+    		
+    	} catch (SQLException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    }
 	
 	public ArrayList<Vaihtoehto> readAllOption() {
 		ArrayList<Vaihtoehto> list=new ArrayList<>();

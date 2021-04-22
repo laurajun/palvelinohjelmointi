@@ -64,7 +64,7 @@ public class ListOptions extends HttpServlet {
 
 			try {
 				Dao dao = new Dao();
-				dao.openDataBase();
+	//			dao.openDataBase();
 				ArrayList<Vaihtoehto> list=dao.readAllOption();
 				printOptionList(out, list);
 				dao.close();

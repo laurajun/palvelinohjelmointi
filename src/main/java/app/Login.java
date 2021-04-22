@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.Dao;
+
 /**
  * Servlet implementation class Login
  */
@@ -42,50 +44,35 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Just leaving a comment for demonstration purposes
+		response.setContentType("text/html;charset=UTF-8");
+				
 		String username = request.getParameter("username");
         String password = request.getParameter("password");
         
-        String sqlhostname = System.getProperty("sqlhostname");
-		String serverport = System.getProperty("sqlserverport");
-		String database = System.getProperty("sqldatabasename");
-		String sqlusername = System.getProperty("sqlusername");
-		String sqlpassword = System.getProperty("sqlpassword");
-		String url = "jdbc:mysql://"+sqlhostname+":"+serverport+"/"+database;
-	 
-		try{
-			String destPage = "index.jsp";
-		    Class.forName("com.mysql.jdbc.Driver");
-		    Connection connection = DriverManager.getConnection(url, sqlusername, sqlpassword);
-		    Statement st= connection.createStatement();
-		    ResultSet rs=st.executeQuery("select * from logins where username='"+username+"' and password='"+password+"'");
-		    
-		    while(rs.next())
-		    {
-			    String fullname = rs.getString("fullname");
-			    if(rs.getString("password").equals(password)&&rs.getString("username").equals(username))
-			    {
-			    
-				    HttpSession session = request.getSession();
-			        session.setAttribute("fullname", fullname);
-			        destPage = "home.jsp";
-			    }
-			    else{
-			    	HttpSession session = request.getSession();
-			    	String message = "Invalid username and/or password";
-			        session.setAttribute("message", message);
-			        destPage = "index.jsp";
-			        
-			    }
-			    
-		    }
-		    
-		    RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
+        try {
+        	String destPage = "index.jsp";
+        	Dao dao = new Dao();
+        	if(dao.CheckLogin(username,password))
+            {
+        	    HttpSession session = request.getSession();
+		        session.setAttribute("username", username);
+		        destPage = "home.jsp";
+            }
+        	else
+            {
+        		HttpSession session = request.getSession();
+		    	String message = "Invalid username and/or password";
+		        session.setAttribute("message", message);
+		        destPage = "index.jsp";
+            }
+            RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
 	        dispatcher.forward(request, response);
-	    }
-	    catch (Exception e) {
-	    e.printStackTrace();
-	    }
+        } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        
 		
 	}
 

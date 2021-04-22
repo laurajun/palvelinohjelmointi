@@ -74,6 +74,25 @@ public class Dao {
 		return list;
 	}
 	
+	public boolean CheckLogin(String username, String password) throws SQLException,
+    ClassNotFoundException {
+			boolean ok = false;
+		
+			String sql = "SELECT * FROM logins WHERE username = ? and password = ?";
+			try {
+    			PreparedStatement pstmt=conn.prepareStatement(sql);
+    			pstmt.setString(1,  username);
+    			pstmt.setString(2,  password);
+    			ResultSet result = pstmt.executeQuery();
+    			ok = result.next();
+
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+			return ok;
+		
+	}
 	
     public void close() {
         try {

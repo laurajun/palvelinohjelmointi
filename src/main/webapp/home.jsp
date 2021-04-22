@@ -9,7 +9,7 @@
 <body>
     <div style="text-align: center">
         <h1>Tervetuloa Vaalikoneeseen!</h1>
-        <b>${fullname}</b>
+        <b>${username}</b>
         <br><br>
         <a href="/logout">Logout</a>
     </div>

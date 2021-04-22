@@ -33,7 +33,7 @@ public class Logout extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.removeAttribute("fullname");
-             
+            session.invalidate();
             RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
             dispatcher.forward(request, response);
         }

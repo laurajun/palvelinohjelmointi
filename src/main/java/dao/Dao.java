@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import conn.Connections;
+import data.Claim;
 import data.Vaihtoehto;
 
 
@@ -66,6 +67,25 @@ public class Dao {
 				vaihtoehto.setId(rs.getInt("id"));
 				vaihtoehto.setVaihtoehto(rs.getString("vaihtoehto"));
 				list.add(vaihtoehto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<Claim> listAllClaims() {
+		ArrayList<Claim> list=new ArrayList<>();
+		Statement statement=null;
+		try {
+			statement = conn.createStatement();
+			ResultSet rs=statement.executeQuery("select * from vaittamat");
+			while (rs.next()) {
+		 		Claim claim =new Claim();
+				claim.setId(rs.getInt("id"));
+				claim.setClaim(rs.getString("vaittama"));
+				list.add(claim);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -31,7 +31,7 @@ public class ShowClaim extends HttpServlet {
     }
     
     public void printClaim(PrintWriter out, ArrayList<Claim> list, ArrayList<Vaihtoehto> optionlist) {
-		out.println("<table border=1>");
+		out.println("<table class='tabledb' border=1>");
 		out.println("<tr><td><b>ID</b></td><td>Väittämä</td><td>Vaihtoehto 1</td><td>Vaihtoehto 2</td><td>Vaihtoehto 3</td><td>Vaihtoehto 4</td><td>Vaihtoehto 5</td></tr>");
 		for (Claim g:list) {
 			out.println("<tr><td>"+g.getId()+"</td><td>"+g.getClaim()+"</td>");

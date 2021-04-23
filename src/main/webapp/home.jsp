@@ -12,8 +12,8 @@
 <div class="header">
 		<h1>Vaalikone</h1>
 	</div>
-    <div class="action" style="text-align: center">
-        <h1>Tervetuloa Vaalikoneeseen <b>${username}</b>!</h1>
+    <div class="action">
+        <h2>Tervetuloa Vaalikoneeseen <b>${username}</b>!</h2>
         <br><br>
         <a href="/ListClaims">Näytä väittämät</a><br><br>
         <a href="TallennaVaittama.jsp">Lisää väittämä</a><br><br>

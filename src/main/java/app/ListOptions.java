@@ -46,25 +46,15 @@ public class ListOptions extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
-
-
 		
 		/*
 		 * With a RequestDispatcher object is the htmlstart.html file included to this servlet
 		 */
 		RequestDispatcher rd=request.getRequestDispatcher("htmlstart.html");
 		rd.include(request,  response);;
-		
-		/* 
-		 * Connection is the object to keep the connection to the database
-		 */
-			//Connection conn=null;
-
-	
 
 			try {
 				Dao dao = new Dao();
-	//			dao.openDataBase();
 				ArrayList<Vaihtoehto> list=dao.readAllOption();
 				printOptionList(out, list);
 				dao.close();
@@ -73,7 +63,8 @@ public class ListOptions extends HttpServlet {
 				e.printStackTrace();
 			}
 
-
+			rd=request.getRequestDispatcher("htmlend.html");
+			rd.include(request,  response);
 	
   }
 

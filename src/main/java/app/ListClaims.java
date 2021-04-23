@@ -30,10 +30,10 @@ public class ListClaims extends HttpServlet {
     }
     
     public void printOptionList(PrintWriter out, ArrayList<Claim> list) {
-		out.println("<table border=1>");
+		out.println("<table class='tabledb' border=1>");
 		out.println("<tr><td><b>ID</b></td><td>Väittämä</td><td>Toiminnot</td></tr>");
 		for (Claim g:list) {
-			out.println("<tr><td><a href=\"/ShowClaim?id="+g.getId()+"\">"+g.getId()+"</a></td><td>"+g.getClaim()+"</td><td><a href=\"/edit?id="+g.getId()+"\">Muokkaa</a>   <a href=\"/delete?id="+g.getId()+"\">Poista</a></td></tr>");
+			out.println("<tr><td><a href=\"/ShowClaim?id="+g.getId()+"\">"+g.getId()+"</a></td><td>"+g.getClaim()+"</td><td><a href=\"/edit?id="+g.getId()+"\">Muokkaa</a>   <a href=\"/vaittamanpoisto.html?id="+g.getId()+"\">Poista</a></td></tr>");
 		}
 		out.println("</table>");
 	}

@@ -17,8 +17,9 @@ h1 {
   font-size: 36px;
   }
 
-p {
-  font-family: 'Roboto', sans-serif;
+p, tr, th, td {
+  font-family: 'Roboto', sans-serif; 
+  font-size: 14px;
   }
 
 /* Form and buttons style */ 
@@ -27,6 +28,11 @@ p {
   background-color: #F1F1F1;
   text-align: center;
   padding: 20px;
+  }
+  
+.tabledb {
+  background-color: #F1F1F1;
+  width: 100%;  
   }
 
 .submit-button {
@@ -44,5 +50,6 @@ p {
 .footer {
   background-color: #F1F1F1;
   text-align: center;
+  font-weight: bold;
   padding: 10px;
   }

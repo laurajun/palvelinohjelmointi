@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.Dao;
 import data.Claim;
+import data.Vaihtoehto;
 
 /**
  * Servlet implementation class ShowClaim
@@ -28,12 +29,16 @@ public class ShowClaim extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    public void printClaim(PrintWriter out, ArrayList<Claim> list) {
+    public void printClaim(PrintWriter out, ArrayList<Claim> list, ArrayList<Vaihtoehto> optionlist) {
 		out.println("<table border=1>");
-		out.println("<tr><td><b>ID</b></td><td>Väittämä</td></tr>");
+		out.println("<tr><td><b>ID</b></td><td>Väittämä</td><td>Vaihtoehto 1</td><td>Vaihtoehto 2</td><td>Vaihtoehto 3</td><td>Vaihtoehto 4</td><td>Vaihtoehto 5</td></tr>");
 		for (Claim g:list) {
-			out.println("<tr><td>"+g.getId()+"</td><td>"+g.getClaim()+"</td></tr>");
+			out.println("<tr><td>"+g.getId()+"</td><td>"+g.getClaim()+"</td>");
 		}
+		for (Vaihtoehto v:optionlist ) {
+			out.println("<td>"+v.getVaihtoehto()+"</td>");
+		}
+		out.println("</tr>");
 		out.println("</table>");
 	}
 
@@ -47,7 +52,8 @@ public class ShowClaim extends HttpServlet {
 		try {
 			Dao dao = new Dao();
 			ArrayList<Claim> list=dao.ShowSingleClaim(id);
-			printClaim(out, list);
+			ArrayList<Vaihtoehto> optionlist=dao.readAllOption();
+			printClaim(out, list, optionlist);
 			dao.close();
 			
 		} catch (Exception e) {

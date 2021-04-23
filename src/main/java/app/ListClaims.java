@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +43,8 @@ public class ListClaims extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out=response.getWriter();
-		
+		RequestDispatcher rd=request.getRequestDispatcher("htmlstart.html");
+		rd.include(request,  response);
 		try {
 			Dao dao = new Dao();
 			ArrayList<Claim> list=dao.listAllClaims();
@@ -52,6 +54,8 @@ public class ListClaims extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		rd=request.getRequestDispatcher("htmlend.html");
+		rd.include(request,  response);
 	}
 
 	/**

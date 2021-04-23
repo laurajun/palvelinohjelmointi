@@ -94,6 +94,29 @@ public class Dao {
 		return list;
 	}
 	
+	public ArrayList<Claim> ShowSingleClaim(int rid) {
+		ArrayList<Claim> list=new ArrayList<>();
+				
+		try {
+			String sql="select * from vaittamat where id=?";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, rid);
+			ResultSet rs=statement.executeQuery(sql);
+			
+			while (rs.next()) {
+		 		Claim claim =new Claim();
+				claim.setId(rs.getInt("id"));
+				claim.setClaim(rs.getString("vaittama"));
+				list.add(claim);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	public boolean CheckLogin(String username, String password) throws SQLException,
     ClassNotFoundException {
 			boolean ok = false;

@@ -49,6 +49,7 @@ public class ShowClaim extends HttpServlet {
 			ArrayList<Claim> list=dao.ShowSingleClaim(id);
 			printClaim(out, list);
 			dao.close();
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

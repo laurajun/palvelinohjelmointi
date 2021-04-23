@@ -94,15 +94,13 @@ public class Dao {
 		return list;
 	}
 	
-	public ArrayList<Claim> ShowSingleClaim(int rid) {
+	public ArrayList<Claim> ShowSingleClaim(int id) {
 		ArrayList<Claim> list=new ArrayList<>();
-				
+		String sql = "SELECT * FROM vaittamat WHERE id = ?";		
 		try {
-			String sql="select * from vaittamat where id=?";
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setInt(1, rid);
-			ResultSet rs=statement.executeQuery(sql);
-			
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,  id);
+ 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 		 		Claim claim =new Claim();
 				claim.setId(rs.getInt("id"));

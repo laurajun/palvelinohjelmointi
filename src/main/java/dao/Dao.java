@@ -1,11 +1,16 @@
 package dao;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import org.apache.commons.codec.binary.Hex;
 
 import conn.Connections;
 import data.Claim;
@@ -134,14 +139,24 @@ public class Dao {
 	}
 	
 	public boolean CheckLogin(String username, String password) throws SQLException,
-    ClassNotFoundException {
+    ClassNotFoundException, UnsupportedEncodingException, NoSuchAlgorithmException {
 			boolean ok = false;
+			String hexEncodedText;
+			MessageDigest md;
+	        byte[] clearTextAsBytes;
 		
-			String sql = "SELECT * FROM logins WHERE username = ? and password = ?";
+			String sql = "SELECT * FROM logins WHERE username = ? and pwd = ?";
 			try {
+				
+				clearTextAsBytes = password.getBytes("UTF-8");
+	            md = MessageDigest.getInstance( "SHA" );
+	            md.reset();
+	            md.update( clearTextAsBytes );
+	            hexEncodedText = Hex.encodeHexString( md.digest() );
+	            
     			PreparedStatement pstmt=conn.prepareStatement(sql);
     			pstmt.setString(1,  username);
-    			pstmt.setString(2,  password);
+    			pstmt.setString(2,  hexEncodedText);
     			ResultSet result = pstmt.executeQuery();
     			ok = result.next();
 

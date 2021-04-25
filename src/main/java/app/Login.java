@@ -59,6 +59,7 @@ public class Login extends HttpServlet {
 		        session.setAttribute("message", message);
 		        destPage = "index.jsp";
             }
+        	dao.close();
             response.sendRedirect(destPage);
         } catch (Exception e) {
 			// TODO Auto-generated catch block

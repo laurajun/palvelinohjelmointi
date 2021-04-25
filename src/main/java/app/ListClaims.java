@@ -56,6 +56,7 @@ public class ListClaims extends HttpServlet {
 		}
 		rd=request.getRequestDispatcher("htmlend.html");
 		rd.include(request,  response);
+		
 	}
 
 	/**

@@ -48,7 +48,7 @@ public class Dao {
     
     public void PaivitaVaittama(String vaittama, int id) {
     	// TODO Auto-generated method stub
-    	  String sql="update table vaittamat set vaittama=? where id=?";
+    	  String sql="update vaittamat set vaittama=? where id=?";
     		try {
     			PreparedStatement pstmt=conn.prepareStatement(sql);
     			pstmt.setString(1,  vaittama);

@@ -27,7 +27,7 @@ public class Connections {
 		
 		  // Initialize the connection pool using the configuration object.
 		pool = new HikariDataSource(config);
-		  
+		 
 		return pool.getConnection();
 	}
 

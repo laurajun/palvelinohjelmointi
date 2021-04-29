@@ -33,8 +33,9 @@ public class ListClaims extends HttpServlet {
 		out.println("<table class='tabledb' border=1>");
 		out.println("<tr><td><b>ID</b></td><td>Väittämä</td><td>Toiminnot</td></tr>");
 		for (Claim g:list) {
-			out.println("<tr><td><a href=\"/ShowClaim?id="+g.getId()+"\">"+g.getId()+"</a></td><td>"+g.getClaim()+"</td><td><a href=\"/PaivitaVaittama?id="+g.getId()+"\">Muokkaa</a>   <a href=\"/PoistaVaittama?id="+g.getId()+"\">Poista</a></td></tr>");
+			out.println("<tr><td><a href=\"/ShowClaim?id="+g.getId()+"\">"+g.getId()+"</a></td><td>"+g.getClaim()+"</td><td><a href=\"/PaivitaVaittama?id="+g.getId()+"\">Muokkaa</a>   <a href=\"/PoistaVaittama?id="+g.getId()+"\" onclick=\"return window.confirm('Oletko varma?');\">Poista</a></td></tr>");
 		}
+		
 		out.println("</table>");
 	}
 

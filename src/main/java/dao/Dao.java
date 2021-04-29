@@ -16,7 +16,11 @@ import conn.Connections;
 import data.Claim;
 import data.Vaihtoehto;
 
-
+/**
+ * 
+ * @author Laura 
+ *
+ */
 public class Dao {
     private Connection conn;
     private Statement statement = null;
@@ -45,7 +49,11 @@ public class Dao {
     			e.printStackTrace();
     		}
     }
-    
+    /**
+     * Väittämän päivitys 
+     * @param vaittama selitys
+     * @param id juu
+     */
     public void PaivitaVaittama(String vaittama, int id) {
     	// TODO Auto-generated method stub
     	  String sql="update vaittamat set vaittama=? where id=?";
